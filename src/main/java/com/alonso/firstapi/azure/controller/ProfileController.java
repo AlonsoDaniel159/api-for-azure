@@ -12,8 +12,18 @@ public class ProfileController {
     @Value("${spring.profiles.active:default}")
     private String activeProfile;
 
-    @GetMapping("/api/profile")
+    @Value("${app.env:default}")
+    private String appEnv;
+
+    @Value("${logging.level.root:default}")
+    private String logging;
+
+    @GetMapping("/profile")
     public Map<String, String> profile() {
-        return Map.of("activeProfile", activeProfile);
+        return Map.of(
+                "activeProfile", activeProfile,
+                "appEnv", appEnv,
+                "logging", logging
+        );
     }
 }
