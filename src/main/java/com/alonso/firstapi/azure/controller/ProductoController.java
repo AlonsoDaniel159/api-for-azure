@@ -18,7 +18,12 @@ import java.util.Map;
 public class ProductoController {
     
     private final ProductoService productoService;
-    
+
+    @GetMapping("/")
+    public String home() {
+        return "App running";
+    }
+
     @GetMapping
     public ResponseEntity<List<Producto>> listarTodos() {
         List<Producto> productos = productoService.obtenerTodos();
