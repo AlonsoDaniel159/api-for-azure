@@ -1,10 +1,10 @@
-FROM openjdk:21-slim
+FROM eclipse-temurin:21-jdk
 
 # Establecer el directorio de trabajo
 WORKDIR /app
 
 # Copiar el JAR compilado
-COPY target/api-for-azure-0.0.1-SNAPSHOT.jar app.jar
+COPY target/*.jar app.jar
 
 # Exponer el puerto
 EXPOSE 8080
