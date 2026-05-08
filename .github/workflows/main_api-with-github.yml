@@ -58,6 +58,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'api-with-github'
-          slot-name: 'staging'
+          slot-name: 'Production'
           package: '*.jar'
           
