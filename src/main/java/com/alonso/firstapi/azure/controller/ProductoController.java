@@ -19,9 +19,9 @@ public class ProductoController {
     
     private final ProductoService productoService;
 
-    @GetMapping("/")
+    @GetMapping("/health")
     public String home() {
-        return "App running";
+        return "App running from staging";
     }
 
     @GetMapping
@@ -34,14 +34,6 @@ public class ProductoController {
     public ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre) {
         List<Producto> productos = productoService.buscarPorNombre(nombre);
         return ResponseEntity.ok(productos);
-    }
-
-    @GetMapping("/health")
-    public ResponseEntity<Map<String, String>> health() {
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("mensaje", "API de Productos está funcionando correctamente");
-        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
