@@ -21,7 +21,7 @@ public class ProductoController {
 
     @GetMapping("/health")
     public String home() {
-        return "App running from staging";
+        return "App running from default";
     }
 
     @GetMapping
