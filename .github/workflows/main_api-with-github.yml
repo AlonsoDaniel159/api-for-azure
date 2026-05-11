@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: api-with-github
+  IMAGE_NAME: api-with-azure
 
 jobs:
   build:
@@ -57,21 +57,13 @@ jobs:
     needs: build
 
     permissions:
-      id-token: write
       contents: read
 
     steps:
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_784E3014F58F4D18815F0EA8F856CA08 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_38233DC99CAE491DB63AAF3F8E7702F1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0295AA7A183644EC999D2FEAF013FF63 }}
-
       - name: Deploy Docker image to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'api-with-github'
+          app-name: 'api-with-azure'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: '${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
