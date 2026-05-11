@@ -1,14 +1,20 @@
-FROM eclipse-temurin:21-jdk
+# ===== Build Stage =====
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
-# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar el JAR compilado
-COPY target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# Exponer el puerto
+RUN mvn clean package -DskipTests
+
+# ===== Runtime Stage =====
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
